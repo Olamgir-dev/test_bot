@@ -1,7 +1,13 @@
 const { Telegraf } = require('telegraf');
+const express = require('express');
+require('dotenv').config()
+const app = express();
+ const token = process.env.BOT_TOKEN;
+//  const port = process.env.PORTS;
+// Bot setup
+const bot = new Telegraf(token);
 
-const bot = new Telegraf('7694221895:AAEknZB295WVX8VPCl_bZ0Mo78Zz6rwYH9A');
-
+// Start command
 bot.start((ctx) => {
   ctx.reply('Hello World!', {
     reply_markup: {
@@ -13,9 +19,20 @@ bot.start((ctx) => {
           { text: 'Location', request_location: true }
         ]
       ],
-      //   resize_keyboard: true, // Optional: Makes the keyboard more compact
     },
   });
 });
 
+// Launch the bot
 bot.launch();
+
+// Create a web server
+const PORT = process.env.PORT || 3000; // Choose port 3000 or the one set in the environment
+
+app.get('/', (req, res) => {
+  res.send('Bot is running!');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

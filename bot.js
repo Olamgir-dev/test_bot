@@ -9,7 +9,7 @@ const bot = new Telegraf(token);
 
 // Start command
 bot.start((ctx) => {
-  ctx.reply('Hello World!', {
+  ctx.reply(`Welcome to our bot ${ctx.chat.first_name}`, {
     reply_markup: {
       keyboard: [
         [
@@ -21,6 +21,7 @@ bot.start((ctx) => {
       ],
     },
   });
+  ctx.chat.first_name
 });
 
 // Launch the bot
